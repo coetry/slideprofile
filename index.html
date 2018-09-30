@@ -136,6 +136,7 @@
       const random = document.querySelector('footer > img.random')
       const prev = document.querySelector('footer > img.prev')
       const slideText = document.querySelector('main > h2') 
+      const circle = document.querySelector('.circle')
  
       const slideContent = [
         'a super hero',
@@ -145,7 +146,52 @@
       ]
       let slideIndex = -1
 
-      next.addEventListener('click', () => {
+      next.addEventListener('click', nextSlide)
+      
+      random.addEventListener('click', randomSlide) 
+     
+      prev.addEventListener('click', prevSlide)
+
+      window.addEventListener('keydown', e => {
+        e.preventDefault()
+        console.log(e.keyCode)
+        switch(e.keyCode) {
+          //ArrowLeft
+          case 37:
+            prevSlide()
+          //SpaceBar
+          case 32:
+            randomSlide()
+          //ArrowRight
+          case 39:
+            nextSlide()
+        }
+      })
+
+      function randomColor() {
+        return `rgb(${Math.floor(Math.random() * 256)},
+                    ${Math.floor(Math.random() * 256)},
+                    ${Math.floor(Math.random() * 256)})`
+      }
+
+     
+      function prevSlide() {
+        slideIndex--
+        if (slideIndex >= 0)
+          slideText.innerHTML = slideContent[slideIndex]
+        else {
+          slideIndex = slideContent.length - 1
+          slideText.innerHTML = slideContent[slideIndex]
+        }
+      }
+     
+      function randomSlide() {
+        slideText.innerHTML = `${Math.floor(Math.random() * 513)}`
+        circle.style.backgroundColor = randomColor()
+      }
+ 
+
+      function nextSlide() {
         slideIndex++
  
         if (slideIndex % (slideContent.length) !== 0)
@@ -154,19 +200,8 @@
           slideIndex = 0
           slideText.innerHTML = slideContent[slideIndex]
         }
-      })
-      random.addEventListener('click', () => {
-        slideText.innerHTML = `${Math.floor(Math.random() * 513)}`
-      })
-      prev.addEventListener('click', () => {
-        slideIndex--
-        if (slideIndex >= 0)
-          slideText.innerHTML = slideContent[slideIndex]
-        else {
-          slideIndex = slideContent.length - 1
-          slideText.innerHTML = slideContent[slideIndex]
-        }
-      })
+      }
+ 
     </script>
   </body>
 </html>
