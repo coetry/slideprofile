@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
   <title>allen hai</title>
   <style>
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -84,6 +85,7 @@
     }
     h1 {
       font-size: 2.4rem;
+      margin: 10px 0;
     }
     h2 {
       font-size: 10vmin;
@@ -94,6 +96,27 @@
       left: 50%;
       width: 60%;
       transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    div.circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #3e78ed;
+      margin: auto;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    footer img {
+      margin: 0 10px;
     }
   </style>
 </head>
@@ -108,5 +131,42 @@
       <img src="assets/random.svg" class="random" />
       <img src="assets/next.svg" class="next" />
     </footer>
+    <script>
+      const next = document.querySelector('footer > img.next')
+      const random = document.querySelector('footer > img.random')
+      const prev = document.querySelector('footer > img.prev')
+      const slideText = document.querySelector('main > h2') 
+ 
+      const slideContent = [
+        'a super hero',
+        'a villian',
+        'a friend',
+        'a character'
+      ]
+      let slideIndex = -1
+
+      next.addEventListener('click', () => {
+        slideIndex++
+ 
+        if (slideIndex % (slideContent.length) !== 0)
+          slideText.innerHTML = slideContent[slideIndex]
+        else {
+          slideIndex = 0
+          slideText.innerHTML = slideContent[slideIndex]
+        }
+      })
+      random.addEventListener('click', () => {
+        slideText.innerHTML = `${Math.floor(Math.random() * 513)}`
+      })
+      prev.addEventListener('click', () => {
+        slideIndex--
+        if (slideIndex >= 0)
+          slideText.innerHTML = slideContent[slideIndex]
+        else {
+          slideIndex = slideContent.length - 1
+          slideText.innerHTML = slideContent[slideIndex]
+        }
+      })
+    </script>
   </body>
 </html>
